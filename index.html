@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev © GK Creations</title>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ashwin weds Ananthi">
+    <meta name="twitter:description" content="Developed by Gk Creations.">
+    <meta name="twitter:image" content="https://gkcreations-svks.netlify.app/Assets/thumbnail.png">
+
+    <link rel="stylesheet" href="h.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+</head>
+<script>
+    let maxPetals = 50; // Set a max number of petals allowed on the screen at once
+    function createPetal() {
+        const petalContainer = document.querySelector(".petal-container");
+
+        // Check if petal count exceeds limit
+        if (document.querySelectorAll(".petal").length >= maxPetals) {
+            return; // Stop creating more petals if limit is reached
+        }
+
+        const petal = document.createElement("img");
+        const petalImages = [
+            "Assets/flower1.png",
+            "Assets/flower2.png",
+            "Assets/flower3.png",
+            "Assets/flower4.png",
+            "Assets/flower5.png",
+            "Assets/flower6.png"
+        ];
+        
+        petal.src = petalImages[Math.floor(Math.random() * petalImages.length)];
+        petal.classList.add("petal");
+
+        // Random position and size
+        petal.style.left = `${Math.random() * 100}vw`;
+        petal.style.width = `${30 + Math.random() * 20}px`; // Random size between 30px and 50px
+
+        // Randomized animation duration
+        let fallDuration = 3 + Math.random() * 3; // Between 3s and 6s
+        petal.style.animation = `fall ${fallDuration}s linear`;
+
+        petalContainer.appendChild(petal);
+
+        // Remove petal after animation ends
+        setTimeout(() => {
+            petal.remove();
+        }, fallDuration * 1000);
+    }
+
+    function startPetalFall() {
+        setInterval(createPetal, 500); // Generate a petal every 500ms
+    }
+</script>
+
+<body>
+
+    <section class="hero">
+        <div class="overlay"></div>
+        <div class="petal-container"></div>
+
+        <div class="content">
+            <h1>Wedding Invitation</h1>
+            <h2>Ashwin <span class="h2-and">&#10084;</span> Ananthi</h2>
+            <p class="p-1">We Are Getting Married</p>
+
+            <div class="countdown" id="countdown">
+                <div class="circle">
+                    <h3 id="days">00</h3>
+                    <p>Days</p>
+                </div>
+                <div class="circle">
+                    <h3 id="hours">00</h3>
+                    <p>Hours</p>
+                </div>
+                <div class="circle">
+                    <h3 id="minutes">00</h3>
+                    <p>Minutes</p>
+                </div>
+                <div class="circle">
+                    <h3 id="seconds">00</h3>
+                    <p>Seconds</p>
+                </div>
+            </div>
+            <div id="welcome-message" class="welcome-message">🎉 Welcome to Our Wedding Celebration! 🎊</div>
+            <br>
+            <a class="invite-btn" style="font-family: 'Lexend Giga', sans-serif;" href="invitation.html">Get
+                Invitation</a>
+            <a class="contact-btn" style="font-family: 'Lexend Giga', sans-serif;" href="contact.html">Contact</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "F12" ||
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
+                (event.ctrlKey && event.key === "U")) {
+                event.preventDefault();
+            }
+        });
+
+        document.querySelectorAll("img").forEach(img => img.setAttribute("draggable", false));
+
+        function updateCountdown() {
+        const targetDate = new Date("May 29, 2026 05:00:00").getTime(); // Set target date and time
+        function calculateTime() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+                if (diff <= 0) {
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("welcome-message").style.display = "block";
+                    startPetalFall();
+                    return;
+                }
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                document.getElementById("minutes").innerText = Math.floor((diff / (1000 * 60)) % 60);
+                document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+            }
+            calculateTime();
+            setInterval(calculateTime, 1000);
+        }
+        document.addEventListener("DOMContentLoaded", updateCountdown);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("bg-music");
+
+            if (!audio) {
+                audio = document.createElement("audio");
+                audio.id = "bg-music";
+                audio.src = "Assets/hero.mp3"; // Update to correct file path
+                audio.loop = true;
+                audio.autoplay = true;
+            }
+
+            function playMusic() {
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        console.log("Autoplay blocked, waiting for user interaction...");
+                    });
+                }
+            }
+
+            document.addEventListener("click", playMusic); // Play on any click
+            document.querySelectorAll("a, button").forEach(btn => {
+                btn.addEventListener("click", playMusic); // Play when clicking buttons or links
+            });
+
+            // Restore audio position on reload
+            let savedTime = sessionStorage.getItem("audioTime");
+            if (savedTime) {
+                audio.currentTime = parseFloat(savedTime);
+            }
+
+            window.addEventListener("beforeunload", () => {
+                sessionStorage.setItem("audioTime", audio.currentTime);
+            });
+        });
+        // document.addEventListener("DOMContentLoaded", updateCountdown);
+
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     let audio = document.getElementById("bg-music");
+
+        //     if (!audio) {
+        //         audio = document.createElement("audio");
+        //         audio.id = "bg-music";
+        //         audio.src = "Assets/Amaran Violin BGM.mp3"; // Update to correct file path
+        //         audio.loop = true;
+        //         audio.autoplay = true;
+
+        //         let savedTime = sessionStorage.getItem("audioTime");
+        //         if (savedTime) {
+        //             audio.currentTime = parseFloat(savedTime);
+        //         }
+
+        //         document.body.appendChild(audio);
+
+        //         let playPromise = audio.play();
+        //         if (playPromise !== undefined) {
+        //             playPromise.catch(() => {
+        //                 console.log("Autoplay blocked, waiting for user interaction...");
+        //                 document.addEventListener("click", () => {
+        //                     audio.play();
+        //                 }, { once: true });
+        //             });
+        //         }
+
+        //         window.addEventListener("beforeunload", () => {
+        //             sessionStorage.setItem("audioTime", audio.currentTime);
+        //         });
+        //     }
+        // });
+
+    </script>
+
+</body>
+
+</html>

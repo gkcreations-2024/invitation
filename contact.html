@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By GK Creations</title>
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&display=swap">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="c.css">
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Contact Us</h1>
+
+            <div class="contact-list">
+                <p class="contact-name"><b>Groom Side</b></p>
+               
+                <div class="contact-item">
+                    <span style="word-spacing: 15px;">Ashwin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8754814554</span>
+                    <a href="tel:8754814554"><i class="fas fa-phone call-icon"></i></a>
+                </div>
+                <p class="contact-name"><b>Bride Side</b></p>
+                
+                <div class="contact-item">
+                    <span style="word-spacing: 10px;">Ananthi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9487768015</span>
+                    <a href="tel:9487768015"><i class="fas fa-phone call-icon"></i></a>
+                </div>
+            </div>
+
+            <div class="bt" style="margin-top:30px;font-family: 'Lexend Giga', sans-serif;">
+                <a class="btn" href="index.html">Back</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Disable right-click
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+
+        // Disable specific key combinations
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "F12" ||
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C")) ||
+                (event.ctrlKey && event.key === "U")) {
+                event.preventDefault();
+            }
+        });
+
+        // Disable image dragging
+        document.querySelectorAll("img").forEach(img => {
+            img.setAttribute("draggable", false);
+        });
+
+        // Background Music with Session Storage
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("bg-music");
+
+            if (!audio) {
+                audio = document.createElement("audio");
+                audio.id = "bg-music";
+                audio.src = "Assets/cont.mp3";  // Change this to your actual file path
+                audio.loop = true;
+                audio.autoplay = true;
+
+                // Restore playback position
+                let savedTime = sessionStorage.getItem("audioTime");
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+
+                document.body.appendChild(audio);
+
+                // Handle autoplay restrictions
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay blocked, waiting for user interaction...");
+                        document.addEventListener("click", () => {
+                            audio.play();
+                        }, { once: true });
+                    });
+                }
+
+                // Save playback position before page unload
+                window.addEventListener("beforeunload", () => {
+                    sessionStorage.setItem("audioTime", audio.currentTime);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wedding Invitation</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="i.css">
+</head>
+
+<body>
+
+    <!-- Wedding Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <h1>You're Invited!</h1>
+            <p>Join us in celebrating the wedding of</p><br>
+            <h2>Ashwin & Ananthi</h2>
+            <p>On<b> 29th May </b>2026 At 5.00AM</p><br>
+            <p style="font-size: 1rem;">At Alagar Mahal, Tuticorin.</p>
+        </div>
+        <br>
+        <div class="header-content2"style="padding: 1px 10px;font-family: 'Lexend Giga', sans-serif;" >
+            <p><b>Engagement :</b> 28th May 2026, 6.45pm.</p>
+        </div>
+        <div  style="flex: row; margin-top:10%;">
+            <a class="btn"  style="font-family: 'Lexend Giga', sans-serif;" href="index.html">back</a>
+            <a class="btn" style="font-family: 'Lexend Giga', sans-serif;" href="contact.html">Contact</a>
+        </div>
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-down">
+            <p>Scroll Down for the Map</p>
+            <div class="scroll-arrow">⬇</div>
+        </div>
+    </header>
+
+    <!-- Venue Section -->
+    <div class="map-container" id="mapSection">
+        <h2 class="venue-title">Find Our Venue Here</h2>
+        
+    </div>
+    <div class="mappi">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.8236947880087!2d78.145819!3d8.802628499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b03ef981a273663%3A0xf237e1185c924b7a!2sAlagar%20Mahal%20(Marriage%20Hall)!5e0!3m2!1sen!2sin!4v1778865323577!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+   
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const numberOfFlowers = 15; // Adjust number of falling flowers
+            for (let i = 0; i < numberOfFlowers; i++) {
+                createFlower();
+            }
+        });
+
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            document.body.appendChild(flower);
+
+            // Random position and animation duration
+            let startPositionX = Math.random() * window.innerWidth;
+            let duration = Math.random() * 5 + 5; // 5s to 10s fall duration
+            let delay = Math.random() * 3; // Random delay
+
+            flower.style.left = `${startPositionX}px`;
+            flower.style.animationDuration = `${duration}s`;
+            flower.style.animationDelay = `-${delay}s`;
+
+            // Remove flower after falling
+            setTimeout(() => {
+                flower.remove();
+                createFlower(); // Add a new one continuously
+            }, duration * 1000);
+        }
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("bg-music");
+
+            if (!audio) {
+                audio = document.createElement("audio");
+                audio.id = "bg-music";
+                audio.src = "Assets/invi.mp3";  // Change to your actual file path
+                audio.loop = true;
+                audio.autoplay = true;
+
+                // Restore previous playback position
+                let savedTime = sessionStorage.getItem("audioTime");
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+
+                document.body.appendChild(audio);
+
+                // Try playing the audio (handle autoplay restrictions)
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay blocked, waiting for user interaction...");
+                        document.addEventListener("click", () => {
+                            audio.play();
+                        }, { once: true });
+                    });
+                }
+
+                // Save playback time before page unload
+                window.addEventListener("beforeunload", () => {
+                    sessionStorage.setItem("audioTime", audio.currentTime);
+                });
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

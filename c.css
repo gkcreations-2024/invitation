@@ -1,0 +1,173 @@
+@font-face {
+    font-family: 'Italianno';
+    src: url('assets/fonts/Italianno-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    src: url('assets/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Playfair Display';
+    src: url('assets/fonts/PlayfairDisplay-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('assets/fonts/Inter-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('assets/fonts/Inter-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-size-adjust: none;
+    font-family: 'Inter', sans-serif !important;
+    font-display: swap;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('Assets/cont.jpeg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.758);
+}
+
+.content {
+    
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.contact-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.contact-item {
+    font-family: 'inter',sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    transition: 0.3s;
+    font-size: 0.8rem;
+    
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.contact-name {
+    font-family: 'inter',sans-serif;
+    
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.call-icon {
+    font-family: "Font Awesome 6 Free", "Arial", sans-serif !important;
+    font-weight: 900; /* Ensures Font Awesome solid style is used */
+    font-size: 1.5rem;
+    color: white;
+    transition: 0.3s;
+    margin-left: 15px;
+}
+
+.call-icon::before {
+    content: "\f095"; /* Unicode for Font Awesome phone icon */
+    font-family: "Font Awesome 6 Free", sans-serif !important;
+}
+
+.btn {
+    z-index: 2;
+    padding: 10px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.call-icon {
+    animation: wobble 2s infinite;
+    color: rgb(255, 255, 255); 
+}
+
+@keyframes wobble {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
